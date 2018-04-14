@@ -1,4 +1,4 @@
-class BlogsController < ApplicationController
+class BlogsController < OpenReadController
   before_action :set_blog, only: [:show, :update, :destroy]
 
   # GET /blogs
@@ -15,7 +15,7 @@ class BlogsController < ApplicationController
 
   # POST /blogs
   def create
-    @blog = Blog.new(blog_params)
+    @blog = current_user.blogs.build(blog_params)
 
     if @blog.save
       render json: @blog, status: :created, location: @blog
@@ -41,7 +41,7 @@ class BlogsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_blog
-      @blog = Blog.find(params[:id])
+      @blog = current_user.blogs.find(params[:id])
     end
 
     # Only allow a trusted parameter "white list" through.
