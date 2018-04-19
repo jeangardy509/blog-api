@@ -1,12 +1,16 @@
-class BlogsController < OpenReadController
-  before_action :set_blog, only: [:show, :update, :destroy]
+# frozen_string_literal: true
 
+class BlogsController < OpenReadController
+  before_action :set_blog, only: %i[show update destroy]
   # GET /blogs
   def index
     @blogs = Blog.all
-
     render json: @blogs
   end
+
+  # def index
+  #   @blogs = blog.where(title:params[:search])
+  # end
 
   # GET /blogs/1
   def show
@@ -39,13 +43,14 @@ class BlogsController < OpenReadController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_blog
-      @blog = current_user.blogs.find(params[:id])
-    end
 
-    # Only allow a trusted parameter "white list" through.
-    def blog_params
-      params.require(:blog).permit(:title, :content, :user_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_blog
+    @blog = current_user.blogs.find(params[:id])
+  end
+
+  # Only allow a trusted parameter "white list" through.
+  def blog_params
+    params.require(:blog).permit(:title, :content, :user_id)
+  end
 end
