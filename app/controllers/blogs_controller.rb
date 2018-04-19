@@ -43,6 +43,13 @@ class BlogsController < OpenReadController
   end
 
   private
+<<<<<<< HEAD
+=======
+    # Use callbacks to share common setup or constraints between actions.
+    def set_blog
+      @blog = current_user.blogs.find(params[:id])
+    end
+>>>>>>> blog
 
   # Use callbacks to share common setup or constraints between actions.
   def set_blog
